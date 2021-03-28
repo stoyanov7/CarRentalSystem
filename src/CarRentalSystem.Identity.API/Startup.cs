@@ -2,6 +2,7 @@ namespace CarRentalSystem.Identity.API
 {
     using CarRentalSystem.Common.Configurations;
     using CarRentalSystem.Identity.API.Configurations;
+    using CarRentalSystem.Identity.Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace CarRentalSystem.Identity.API
 
         public void ConfigureServices(IServiceCollection services)
             => services
-                .AddDatabase(this.Configuration)
+                .AddDatabase<IdentityContext>(this.Configuration)
                 .AddApplicationSettings(this.Configuration)
                 .AddTokenAuthentication(this.Configuration)
                 .AddIdentity()

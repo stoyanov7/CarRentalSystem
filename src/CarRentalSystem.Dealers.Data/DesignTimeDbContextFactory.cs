@@ -1,24 +1,24 @@
-﻿namespace CarRentalSystem.Identity.Data
+﻿namespace CarRentalSystem.Dealers.Data
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
     using System.IO;
 
-    class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentityContext>
+    class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DealersContext>
     {
-        public IdentityContext CreateDbContext(string[] args)
+        public DealersContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var builder = new DbContextOptionsBuilder<IdentityContext>();
+            var builder = new DbContextOptionsBuilder<DealersContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             builder.UseSqlServer(connectionString);
 
-            return new IdentityContext(builder.Options);
+            return new DealersContext(builder.Options);
         }
     }
 }
