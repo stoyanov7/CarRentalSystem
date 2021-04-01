@@ -15,7 +15,11 @@ namespace CarRentalSystem.Dealers.API
         public IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
-            => services.AddDatabase<DealersContext>(this.Configuration);
+            => services
+            .AddDatabase<DealersContext>(this.Configuration)
+            .AddApplicationSettings(this.Configuration)
+            .AddTokenAuthentication(this.Configuration)
+            .AddControllers();
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             => app
