@@ -1,6 +1,6 @@
-﻿namespace CarRentalSystem.Dealers.Data
+﻿namespace CarRentalSystem.Common
 {
-    internal class DataConstants
+    public class DataConstants
     {
         public const int MinDescriptionLength = 20;
 
@@ -17,5 +17,9 @@
         public const int MaxUrlLength = 2048;
 
         public const int MaxPhoneNumberLength = 20;
+
+        public const int MinPhoneNumberLength = 5;
+
+        public const string PhoneNumberRegularExpression = @"\+[0-9]*";
     }
 }

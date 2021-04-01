@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using static CarRentalSystem.Dealers.Data.DataConstants;
+    using static CarRentalSystem.Common.DataConstants;
 
     internal class ManufacturerConfiguration : IEntityTypeConfiguration<Manufacturer>
     {
