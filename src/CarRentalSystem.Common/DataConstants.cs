@@ -21,5 +21,9 @@
         public const int MinPhoneNumberLength = 5;
 
         public const string PhoneNumberRegularExpression = @"\+[0-9]*";
+
+        public const int MinNumberOfSeats = 2;
+
+        public const int MaxNumberOfSeats = 50;
     }
 }

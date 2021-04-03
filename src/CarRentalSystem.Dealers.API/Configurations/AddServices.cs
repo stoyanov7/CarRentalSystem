@@ -9,7 +9,10 @@
         public static IServiceCollection AddServices(this IServiceCollection service)
         {
             service
-                .AddTransient<IDealerService, DealerService>();
+                .AddTransient<ICarAdService, CarAdService>()
+                .AddTransient<ICategoryService, CategoryService>()
+                .AddTransient<IDealerService, DealerService>()
+                .AddTransient<IManufacturerService, ManufacturerService>();
 
             return service;
         }
