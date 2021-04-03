@@ -7,6 +7,7 @@ namespace CarRentalSystem.Dealers.API
     using CarRentalSystem.Common.Configurations;
     using CarRentalSystem.Dealers.API.Configurations;
     using CarRentalSystem.Dealers.Data;
+    using System.Reflection;
 
     public class Startup
     {
@@ -19,6 +20,7 @@ namespace CarRentalSystem.Dealers.API
             .AddDatabase<DealersContext>(this.Configuration)
             .AddApplicationSettings(this.Configuration)
             .AddTokenAuthentication(this.Configuration)
+            .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddServices()
             .AddControllers();
 
