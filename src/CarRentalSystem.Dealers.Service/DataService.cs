@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service.Contracts
 {
     using CarRentalSystem.Dealers.Data;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public abstract class DataService<TEntity> : IDataService<TEntity>
@@ -9,6 +10,8 @@
         protected DataService(DealersContext dealersContext) => this.DealersContext = dealersContext;
 
         protected DealersContext DealersContext { get; }
+
+        protected IQueryable<TEntity> All() => this.DealersContext.Set<TEntity>();
 
         public async Task Save(TEntity entity)
         {
