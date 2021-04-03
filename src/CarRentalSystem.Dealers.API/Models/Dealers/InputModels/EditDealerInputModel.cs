@@ -1,10 +1,10 @@
-﻿namespace CarRentalSystem.Dealers.API.Models.Dealers
+﻿namespace CarRentalSystem.Dealers.API.Models.Dealers.InputModels
 {
     using System.ComponentModel.DataAnnotations;
 
     using static CarRentalSystem.Common.DataConstants;
 
-    public class CreateDealerInputModel
+    public class EditDealerInputModel
     {
         [Required]
         [MinLength(MinNameLength)]

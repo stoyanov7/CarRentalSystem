@@ -2,7 +2,7 @@
 {
     using CarRentalSystem.Common;
     using CarRentalSystem.Common.Controllers;
-    using CarRentalSystem.Dealers.API.Models.Dealers;
+    using CarRentalSystem.Dealers.API.Models.Dealers.InputModels;
     using CarRentalSystem.Dealers.API.Models.Dealers.OutputModels;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
@@ -24,7 +24,7 @@
         [HttpPost]
         [Authorize]
         [Route(nameof(Create))]
-        public async Task<ActionResult> Create([FromBody] CreateDealerInputModel createDealerInputModel)
+        public async Task<ActionResult> Create(CreateDealerInputModel createDealerInputModel)
         {
             var dealer = new Dealer
             {
@@ -38,14 +38,9 @@
             return this.Ok();
         }
 
-        [HttpGet]
-        [Route("Details/{Id}")]
-        public async Task<ActionResult<DealerDetailsOutputModel>> Details(int id)
-            => await this.dealerService.GetDetailsAsync<DealerDetailsOutputModel>(id);
-
         [HttpPost]
         [Route("Edit/{Id}")]
-        public async Task<ActionResult> Edit(int id, [FromBody] EditDealerInputModel editDealerInputModel)
+        public async Task<ActionResult> Edit(int id, EditDealerInputModel editDealerInputModel)
         {
             var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
 
@@ -60,6 +55,27 @@
             await this.dealerService.Save(dealer);
 
             return this.Ok();
+        }
+
+        [HttpGet]
+        [Route("Details/{Id}")]
+        public async Task<ActionResult<DealerDetailsOutputModel>> Details(int id)
+            => await this.dealerService.GetDetailsAsync<DealerDetailsOutputModel>(id);
+
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(GetDealerId))]
+        public async Task<ActionResult<int>> GetDealerId()
+        {
+            var userId = this.currentUserService.UserId;
+            var isUserDealer = await this.dealerService.IsDealerAsync(userId);
+
+            if (!isUserDealer)
+            {
+                return this.BadRequest("This user is not a dealer.");
+            }
+
+            return await this.dealerService.GetDealerIdByUserIdAsync(this.currentUserService.UserId);
         }
     }
 }

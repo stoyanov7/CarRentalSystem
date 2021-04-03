@@ -8,5 +8,9 @@
         Task<TModel> GetDetailsAsync<TModel>(int id);
 
         Task<Dealer> FindByUserAsync(string userId);
+
+        Task<bool> IsDealerAsync(string userId);
+
+        Task<int> GetDealerIdByUserIdAsync(string userId);
     }
 }

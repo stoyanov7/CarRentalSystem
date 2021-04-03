@@ -27,6 +27,10 @@
 
         public async Task<Dealer> FindByUserAsync(string userId) => await this.FindByUserAsync(userId, dealer => dealer);
 
+        public async Task<bool> IsDealerAsync(string userId) => await this.All().AnyAsync(d => d.UserId == userId);
+
+        public Task<int> GetDealerIdByUserIdAsync(string userId) => this.FindByUserAsync(userId, dealer => dealer.Id);
+
         private async Task<T> FindByUserAsync<T>(string userId, Expression<Func<Dealer, T>> selector)
         {
             var dealerData = await this
