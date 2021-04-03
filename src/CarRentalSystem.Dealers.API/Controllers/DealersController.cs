@@ -39,7 +39,7 @@
         }
 
         [HttpPost]
-        [Route("Edit/{Id}")]
+        [Route(nameof(Edit) + PathSeparator + Id)]
         public async Task<ActionResult> Edit(int id, EditDealerInputModel editDealerInputModel)
         {
             var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
@@ -58,7 +58,7 @@
         }
 
         [HttpGet]
-        [Route("Details/{Id}")]
+        [Route(nameof(Details) + PathSeparator + Id)]
         public async Task<ActionResult<DealerDetailsOutputModel>> Details(int id)
             => await this.dealerService.GetDetailsAsync<DealerDetailsOutputModel>(id);
 
