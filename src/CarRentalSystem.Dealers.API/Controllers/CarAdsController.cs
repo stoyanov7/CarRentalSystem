@@ -9,6 +9,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using CarRentalSystem.Dealers.API.Models.Categories;
 
     public class CarAdsController : ApiController
     {
@@ -140,13 +142,31 @@
             => await this.carAdService.GetDetails<CarAdDetailsOutputModel>(id);
 
         [HttpGet]
+        [Route(nameof(Search))]
         public async Task<ActionResult<SearchCarAdsOutputModel>> Search([FromQuery] CarAdsInputModel query)
         {
-            var carAdListings = await this.carAdService.GetListings(query);
+            var carAdListings = await this.carAdService.GetListings<CarAdOutputModel>(query);
             var totalPages = await this.carAdService.Total(query);
 
             return new SearchCarAdsOutputModel(carAdListings, query.Page, totalPages);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(Mine))]
+        public async Task<ActionResult<MineCarAdsOutputModel>> Mine([FromQuery] CarAdsInputModel query)
+        {
+            var dealerId = await this.dealerService.GetDealerIdByUserIdAsync(this.currentUserService.UserId);
+            var carAdListings = await this.carAdService.Mine<MineCarAdOutputModel>(dealerId, query);
+            var totalPages = await this.carAdService.Total(query);
+
+            return new MineCarAdsOutputModel(carAdListings, query.Page, totalPages);
+        }
+
+        [HttpGet]
+        [Route(nameof(Categories))]
+        public async Task<IEnumerable<CategoryOutputModel>> Categories()
+            => await this.categoryService.GetAll<CategoryOutputModel>();
 
         [HttpPost]
         [Route(nameof(ChangeAvailability) + PathSeparator + Id)]

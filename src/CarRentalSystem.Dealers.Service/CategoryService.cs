@@ -5,6 +5,7 @@
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -25,5 +26,10 @@
 
             return model;
         }
+
+        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+            => await this.mapper
+                .ProjectTo<TModel>(this.DealersContext.Categories)
+                .ToListAsync();
     }
 }

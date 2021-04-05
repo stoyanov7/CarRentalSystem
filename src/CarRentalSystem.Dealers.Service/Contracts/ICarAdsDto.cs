@@ -1,9 +1,6 @@
-﻿namespace CarRentalSystem.Dealers.API.Models.CarAds.InputModels
+﻿namespace CarRentalSystem.Dealers.Service.Contracts
 {
-    using CarRentalSystem.Dealers.Service.Contracts;
-
-
-    public class CarAdsInputModel : ICarAdsDto
+    public interface ICarAdsDto
     {
         public string Manufacturer { get; set; }
 
@@ -19,6 +16,6 @@
 
         public string Order { get; set; }
 
-        public int Page { get; set; } = 1;
+        public int Page { get; set; }
     }
 }
