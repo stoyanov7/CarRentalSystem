@@ -4,6 +4,8 @@
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class CategoryService : DataService<Category>, ICategoryService

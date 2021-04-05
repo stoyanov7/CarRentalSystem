@@ -12,5 +12,7 @@
         Task<bool> IsDealerAsync(string userId);
 
         Task<int> GetDealerIdByUserIdAsync(string userId);
+
+        Task<bool> HasCarAd(int dealerId, int carAdId);
     }
 }

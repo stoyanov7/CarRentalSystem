@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Dealers.API.Models.CarAds
+﻿namespace CarRentalSystem.Dealers.API.Models.CarAds.InputModels
 {
     using CarRentalSystem.Dealers.Data.Models;
     using System;
