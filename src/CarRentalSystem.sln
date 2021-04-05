@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Dealers.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Dealers.API", "CarRentalSystem.Dealers.API\CarRentalSystem.Dealers.API.csproj", "{47A2DD33-28E2-4A7E-8BCA-DD8D4A1E9C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Dealers.Service", "CarRentalSystem.Dealers.Service\CarRentalSystem.Dealers.Service.csproj", "{146DF81E-9854-4FB3-868A-32F46E443797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Dealers.Service", "CarRentalSystem.Dealers.Service\CarRentalSystem.Dealers.Service.csproj", "{146DF81E-9854-4FB3-868A-32F46E443797}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Statistics", "Statistics", "{05F83032-7611-41F5-92A3-0E3E8AEDA304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Statistics.Data", "CarRentalSystem.Statistics.Data\CarRentalSystem.Statistics.Data.csproj", "{BBC82111-AE8C-4190-8000-C4A8750F9EA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{146DF81E-9854-4FB3-868A-32F46E443797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{146DF81E-9854-4FB3-868A-32F46E443797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{146DF81E-9854-4FB3-868A-32F46E443797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC82111-AE8C-4190-8000-C4A8750F9EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC82111-AE8C-4190-8000-C4A8750F9EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC82111-AE8C-4190-8000-C4A8750F9EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC82111-AE8C-4190-8000-C4A8750F9EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{89D60A3D-9FE0-45A3-80F2-7139C738C08E} = {279FC9EF-3582-4129-8B38-26D8D5136D60}
 		{47A2DD33-28E2-4A7E-8BCA-DD8D4A1E9C0A} = {279FC9EF-3582-4129-8B38-26D8D5136D60}
 		{146DF81E-9854-4FB3-868A-32F46E443797} = {279FC9EF-3582-4129-8B38-26D8D5136D60}
+		{BBC82111-AE8C-4190-8000-C4A8750F9EA7} = {05F83032-7611-41F5-92A3-0E3E8AEDA304}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9388EC1D-0DAA-4987-A8ED-02517FF26E9E}
