@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Service;
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
@@ -20,8 +21,7 @@
         public async Task<TModel> FindByNameAsync<TModel>(string name)
         {
             var manufacturer = await this
-                .DealersContext
-                .Manufacturers
+                .All()
                 .FirstOrDefaultAsync(m => m.Name == name);
 
             var model = this.mapper.Map<TModel>(manufacturer);

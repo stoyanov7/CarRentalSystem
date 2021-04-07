@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Service;
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
@@ -34,17 +35,17 @@
 
         public async Task<bool> Delete(int id)
         {
-            var carAd = await this.DealersContext
-                .CarAds
-                .FindAsync(id);
+            var carAd = await this
+                .Context
+                .FindAsync<CarAd>(id);
 
             if (carAd == null)
             {
                 return false;
             }
 
-            this.DealersContext.CarAds.Remove(carAd);
-            await this.DealersContext.SaveChangesAsync();
+            this.Context.Remove(carAd);
+            await this.Context.SaveChangesAsync();
 
             return true;
         }

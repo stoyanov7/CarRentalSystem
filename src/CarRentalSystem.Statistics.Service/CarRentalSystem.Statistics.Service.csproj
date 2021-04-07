@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,7 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CarRentalSystem.Common\CarRentalSystem.Common.csproj" />
     <ProjectReference Include="..\CarRentalSystem.Statistics.Data\CarRentalSystem.Statistics.Data.csproj" />
-    <ProjectReference Include="..\CarRentalSystem.Statistics.Service\CarRentalSystem.Statistics.Service.csproj" />
   </ItemGroup>
 
 </Project>

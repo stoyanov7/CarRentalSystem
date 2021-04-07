@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Service;
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
@@ -21,7 +22,10 @@
 
         public async Task<TModel> FindByIdAsync<TModel>(int categoryId)
         {
-            var category = await this.DealersContext.Categories.FindAsync(categoryId);
+            var category = await this
+                .Context
+                .FindAsync<Category>(categoryId);
+
             var model = this.mapper.Map<TModel>(category);
 
             return model;
@@ -29,7 +33,7 @@
 
         public async Task<IEnumerable<TModel>> GetAll<TModel>()
             => await this.mapper
-                .ProjectTo<TModel>(this.DealersContext.Categories)
+                .ProjectTo<TModel>(this.All())
                 .ToListAsync();
     }
 }

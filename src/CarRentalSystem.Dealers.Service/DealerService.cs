@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Service;
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
@@ -40,8 +41,7 @@
         private async Task<T> FindByUserAsync<T>(string userId, Expression<Func<Dealer, T>> selector)
         {
             var dealerData = await this
-                .DealersContext
-                .Dealers
+                .All()
                 .Where(u => u.UserId == userId)
                 .Select(selector)
                 .FirstOrDefaultAsync();

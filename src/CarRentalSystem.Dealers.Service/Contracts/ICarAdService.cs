@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Dealers.Service.Contracts
 {
+    using CarRentalSystem.Common.Service;
     using CarRentalSystem.Dealers.Data.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
