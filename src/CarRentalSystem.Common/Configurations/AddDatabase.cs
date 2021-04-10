@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using System;
 
     public static partial class ConfigurationExtensions
     {
@@ -10,6 +11,14 @@
             where TDbContext : DbContext
             => services
                 .AddScoped<DbContext, TDbContext>()
-                .AddDbContextPool<TDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                .AddDbContextPool<TDbContext>(options =>
+                    options.UseSqlServer(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        sqlServerOptionsAction => sqlServerOptionsAction.EnableRetryOnFailure(
+                            maxRetryCount: 10,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null)
+                        )
+                );
     }
 }
