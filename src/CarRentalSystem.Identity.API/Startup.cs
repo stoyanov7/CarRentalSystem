@@ -15,14 +15,16 @@ namespace CarRentalSystem.Identity.API
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-            => services
+        {
+            services
                 .AddDatabase<IdentityContext>(this.Configuration)
                 .AddApplicationSettings(this.Configuration)
                 .AddTokenAuthentication(this.Configuration)
                 .AddIdentity()
                 .AddServices()
+                .AddHealthChecker(this.Configuration)
                 .AddControllers();
-
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
             => app
