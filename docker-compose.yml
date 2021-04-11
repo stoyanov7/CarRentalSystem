@@ -67,6 +67,19 @@ services:
             - carrentalsystem-network
       depends_on:
             - data
+
+   watchdog:
+      container_name: watchdog
+      build:
+         context: ./src
+         dockerfile: ./CarRentalSystem.Watchdog/Dockerfile
+      ports: 
+         - "5007:80"
+      restart: on-failure
+      networks: 
+         - carrentalsystem-network
+      depends_on:
+         - data
 networks:
    carrentalsystem-network:
 volumes:
