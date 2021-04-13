@@ -5,6 +5,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using System.Text;
     using Microsoft.IdentityModel.Tokens;
+    using CarRentalSystem.Common.Service.Contracts;
+    using CarRentalSystem.Common.Service;
 
     public static partial class ConfigurationExtensions
     {

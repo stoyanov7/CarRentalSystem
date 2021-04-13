@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Common
+﻿namespace CarRentalSystem.Common.Service.Contracts
 {
     public interface ICurrentUserService
     {

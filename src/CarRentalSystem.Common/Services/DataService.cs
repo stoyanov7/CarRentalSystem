@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Common.Service
 {
+    using CarRentalSystem.Common.Service.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
