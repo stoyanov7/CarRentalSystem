@@ -80,6 +80,17 @@ services:
          - carrentalsystem-network
       depends_on:
          - data
+
+   admin:
+      container_name: admin
+      build:
+         context: ./src
+         dockerfile: ./CarRentalSystem.Admin/Dockerfile
+      ports: 
+         - "5009:80"
+      restart: on-failure   
+      networks: 
+         - carrentalsystem-network
 networks:
    carrentalsystem-network:
 volumes:
