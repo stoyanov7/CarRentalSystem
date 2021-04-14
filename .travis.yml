@@ -11,7 +11,7 @@ install:
 before_script:
   - chmod +x ./scripts/dotnet-build.sh 
 script:
-  - dotnet build
+  - ./scripts/dotnet-build.sh
 branches:
   only:
   - main
