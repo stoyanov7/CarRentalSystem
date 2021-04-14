@@ -5,7 +5,7 @@ sudo: required
 dotnet: 5.0
 solution: src/CarRentalSystem.sln
 before_install:
-  - chmod +x scripts
+  - chmod +x ./scripts/dotnet-restore.sh
 install:
   - ./scripts/dotnet-restore.sh
 script:
