@@ -8,6 +8,8 @@ before_install:
   - chmod +x ./scripts/dotnet-restore.sh 
 install:
   - ./scripts/dotnet-restore.sh
+before_script:
+  - chmod +x ./scripts/dotnet-build.sh 
 script:
   - dotnet build
 branches:
