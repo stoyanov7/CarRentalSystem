@@ -5,9 +5,9 @@ sudo: required
 dotnet: 5.0
 solution: src/CarRentalSystem.sln
 install:
+  - cd src
   - dotnet restore
 script:
-  - cd src
   - dotnet build
 branches:
   only:
