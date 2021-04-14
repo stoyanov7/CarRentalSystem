@@ -4,8 +4,8 @@ dist: xenial
 sudo: required
 dotnet: 5.0
 solution: src/CarRentalSystem.sln
-before_script:
-  - chmod -R a+x scripts
+before_install:
+  - chmod +x scripts
 install:
   - ./scripts/dotnet-restore.sh
 script:
