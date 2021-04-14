@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Statistics.API.Models
 {
-    using CarRentalSystem.Common.Services;
+    using CarRentalSystem.Common.MappingProfiles;
     using CarRentalSystem.Statistics.Data.Models;
 
     public class StatisticsOutputModel : IMapFrom<Statistics>

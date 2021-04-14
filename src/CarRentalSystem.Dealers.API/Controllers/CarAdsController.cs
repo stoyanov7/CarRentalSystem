@@ -11,6 +11,7 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using CarRentalSystem.Dealers.API.Models.Categories;
+    using CarRentalSystem.Common.Service.Contracts;
 
     public class CarAdsController : ApiController
     {

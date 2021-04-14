@@ -1,7 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.API.Models.Categories
 {
     using AutoMapper;
-    using CarRentalSystem.Common.Services;
+    using CarRentalSystem.Common.MappingProfiles;
     using CarRentalSystem.Dealers.Data.Models;
     using System.Linq;
 

@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Common;
     using CarRentalSystem.Common.Controllers;
+    using CarRentalSystem.Common.Service.Contracts;
     using CarRentalSystem.Dealers.API.Models.Dealers.InputModels;
     using CarRentalSystem.Dealers.API.Models.Dealers.OutputModels;
     using CarRentalSystem.Dealers.Data.Models;

@@ -1,7 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.API.Models.CarAds.OutputModels
 {
     using AutoMapper;
-    using CarRentalSystem.Common.Services;
+    using CarRentalSystem.Common.MappingProfiles;
     using CarRentalSystem.Dealers.Data.Models;
 
     public class CarAdOutputModel : IMapFrom<CarAd>

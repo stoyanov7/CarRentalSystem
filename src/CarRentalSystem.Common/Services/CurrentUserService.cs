@@ -1,5 +1,6 @@
-﻿namespace CarRentalSystem.Common
+﻿namespace CarRentalSystem.Common.Service
 {
+    using CarRentalSystem.Common.Service.Contracts;
     using Microsoft.AspNetCore.Http;
     using System;
     using System.Security.Claims;

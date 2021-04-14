@@ -22,13 +22,13 @@ namespace CarRentalSystem.Dealers.API
             .AddTokenAuthentication(this.Configuration)
             .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddServices()
+            .AddHealthChecker(this.Configuration)
             .AddControllers();
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             => app
                 .UseWebService(env)
-                .UseDatabaseMigrate()
-                .UseSeedData();
+                .UseDatabaseMigrate();
         
     }
 }

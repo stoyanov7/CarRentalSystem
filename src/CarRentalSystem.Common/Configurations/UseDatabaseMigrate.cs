@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Common.Configurations
 {
+    using CarRentalSystem.Common.Services.Contracts;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,13 @@
             var db = serviceProvider.GetRequiredService<DbContext>();
 
             db.Database.Migrate();
+
+            var seeders = serviceProvider.GetServices<IDataSeeder>();
+
+            foreach (var seeder in seeders)
+            {
+                seeder.SeedData();
+            }
 
             return app;
         }

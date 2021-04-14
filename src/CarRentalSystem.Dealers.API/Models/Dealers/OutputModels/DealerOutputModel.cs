@@ -1,6 +1,6 @@
 ﻿namespace CarRentalSystem.Dealers.API.Models.Dealers.OutputModels
 {
-    using CarRentalSystem.Common.Services;
+    using CarRentalSystem.Common.MappingProfiles;
     using CarRentalSystem.Dealers.Data.Models;
 
     public class DealerOutputModel : IMapFrom<Dealer>

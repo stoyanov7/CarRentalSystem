@@ -1,5 +1,7 @@
 ﻿namespace CarRentalSystem.Identity.API.Configurations
 {
+    using CarRentalSystem.Common.Services.Contracts;
+    using CarRentalSystem.Identity.Data;
     using CarRentalSystem.Identity.Services;
     using CarRentalSystem.Identity.Services.Contracts;
     using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +12,8 @@
         {
             service
                 .AddTransient<IIdentityService, IdentityService>()
-                .AddTransient<ITokenGeneratorService, TokenGeneratorService>();
+                .AddTransient<ITokenGeneratorService, TokenGeneratorService>()
+                .AddTransient<IDataSeeder, IdentityDataSeeder>();
 
             return service;
         }

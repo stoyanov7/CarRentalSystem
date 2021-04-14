@@ -1,8 +1,8 @@
 ﻿namespace CarRentalSystem.Identity.API.Controllers
 {
     using System.Threading.Tasks;
-    using CarRentalSystem.Common;
     using CarRentalSystem.Common.Controllers;
+    using CarRentalSystem.Common.Service.Contracts;
     using CarRentalSystem.Data.Models;
     using CarRentalSystem.Identity.Services.Contracts;
     using Microsoft.AspNetCore.Authorization;

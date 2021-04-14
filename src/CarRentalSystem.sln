@@ -27,7 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Statistics.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Statistics.API", "CarRentalSystem.Statistics.API\CarRentalSystem.Statistics.API.csproj", "{4257D9CA-4293-48B7-892A-5773DAF0E8F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Statistics.Service", "CarRentalSystem.Statistics.Service\CarRentalSystem.Statistics.Service.csproj", "{AF3B2491-281A-4A02-B107-D05501D76FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Statistics.Service", "CarRentalSystem.Statistics.Service\CarRentalSystem.Statistics.Service.csproj", "{AF3B2491-281A-4A02-B107-D05501D76FCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalSystem.Watchdog", "CarRentalSystem.Watchdog\CarRentalSystem.Watchdog.csproj", "{EDFE8CE9-9F80-4F27-9FA8-420139291B44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalSystem.Admin", "CarRentalSystem.Admin\CarRentalSystem.Admin.csproj", "{D8477066-CA4C-479A-84F0-16D3D5F1F2DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{AF3B2491-281A-4A02-B107-D05501D76FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF3B2491-281A-4A02-B107-D05501D76FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF3B2491-281A-4A02-B107-D05501D76FCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDFE8CE9-9F80-4F27-9FA8-420139291B44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDFE8CE9-9F80-4F27-9FA8-420139291B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDFE8CE9-9F80-4F27-9FA8-420139291B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDFE8CE9-9F80-4F27-9FA8-420139291B44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8477066-CA4C-479A-84F0-16D3D5F1F2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8477066-CA4C-479A-84F0-16D3D5F1F2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8477066-CA4C-479A-84F0-16D3D5F1F2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8477066-CA4C-479A-84F0-16D3D5F1F2DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

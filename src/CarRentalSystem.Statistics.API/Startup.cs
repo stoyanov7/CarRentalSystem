@@ -19,6 +19,7 @@ namespace CarRentalSystem.Statistics.API
             .AddDatabase<StatisticsContext>(this.Configuration)
             .AddApplicationSettings(this.Configuration)
             .AddTokenAuthentication(this.Configuration)
+            .AddHealthChecker(this.Configuration)
             .AddControllers();
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

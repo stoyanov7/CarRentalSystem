@@ -1,7 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.API
 {
     using AutoMapper;
-    using CarRentalSystem.Common.Services;
+    using CarRentalSystem.Common.MappingProfiles;
     using System;
     using System.Linq;
     using System.Reflection;
