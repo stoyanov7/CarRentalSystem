@@ -7,7 +7,7 @@ solution: src/CarRentalSystem.sln
 install:
   - dotnet restore
 script:
-  - cd src/CarRentalSystem
+  - cd src
   - dotnet build
 branches:
   only:
