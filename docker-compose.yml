@@ -79,7 +79,9 @@ services:
       networks: 
          - carrentalsystem-network
       depends_on:
-         - data
+         - identity
+         - dealers
+         - statistics
 
    admin:
       container_name: admin
