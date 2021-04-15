@@ -1,9 +1,11 @@
 ﻿namespace CarRentalSystem.Admin.Controllers
 {
     using CarRentalSystem.Admin.Models;
+    using CarRentalSystem.Common;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System.Diagnostics;
+    using System.Security.Claims;
 
     public class HomeController : Controller
     {
@@ -16,18 +18,17 @@
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var a = this.User.HasClaim(ClaimTypes.Role, "Administrator");
+            if (this.User.IsAdministrator())
+            {
+                return this.RedirectToAction(nameof(StatisticsController.Index), "Statistics");
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
     }
 }
