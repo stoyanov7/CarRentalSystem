@@ -16,3 +16,7 @@ branches:
   only:
   - main
   - dev
+notifications:
+  email:
+    on_success: never
+    on_failure: never
