@@ -2,13 +2,21 @@ language: csharp
 mono: none
 dist: xenial
 sudo: required
-dotnet: 3.1
+dotnet: 5.0
 solution: src/CarRentalSystem.sln
+before_install:
+  - chmod +x ./scripts/dotnet-restore.sh 
 install:
-  - dotnet restore
+  - travis_wait ./scripts/dotnet-restore.sh
+before_script:
+  - chmod +x ./scripts/dotnet-build.sh 
 script:
-  - dotnet build
+  - ./scripts/dotnet-build.sh
 branches:
   only:
   - main
   - dev
+notifications:
+  email:
+    on_success: never
+    on_failure: never
