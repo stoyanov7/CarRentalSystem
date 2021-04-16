@@ -36,6 +36,10 @@ namespace CarRentalSystem.Admin
             services
                 .AddRefitClient<IIdentityService>()
                 .WithConfiguration(serviceEndpoints.Identity);
+
+            services
+                .AddRefitClient<IStatisticsService>()
+                .WithConfiguration(serviceEndpoints.Statistics);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
