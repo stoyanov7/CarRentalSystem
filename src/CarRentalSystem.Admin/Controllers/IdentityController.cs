@@ -38,5 +38,13 @@
                 },
                 success: this.RedirectToAction(nameof(StatisticsController.Index), "Statistics"),
                 failure: this.View("../Home/Index", model));
+
+        [AuthorizeAdministrator]
+        public IActionResult Logout()
+        {
+            this.Response.Cookies.Delete("Authentication");
+
+            return this.RedirectToAction(nameof(HomeController.Index), "Home");
+        }
     }
 }
