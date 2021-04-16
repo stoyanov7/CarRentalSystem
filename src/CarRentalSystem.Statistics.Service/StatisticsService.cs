@@ -21,7 +21,7 @@
         public async Task<TModel> Full<TModel>()
             => await this.mapper
                 .ProjectTo<TModel>(this.All())
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
        
     }
 }
