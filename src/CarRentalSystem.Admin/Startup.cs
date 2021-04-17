@@ -40,6 +40,10 @@ namespace CarRentalSystem.Admin
             services
                 .AddRefitClient<IStatisticsService>()
                 .WithConfiguration(serviceEndpoints.Statistics);
+
+            services
+                .AddRefitClient<IDealerService>()
+                .WithConfiguration(serviceEndpoints.Dealers);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

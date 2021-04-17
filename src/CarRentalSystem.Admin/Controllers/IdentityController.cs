@@ -3,6 +3,7 @@
     using AutoMapper;
     using CarRentalSystem.Admin.Models.Identity;
     using CarRentalSystem.Admin.Services;
+    using CarRentalSystem.Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

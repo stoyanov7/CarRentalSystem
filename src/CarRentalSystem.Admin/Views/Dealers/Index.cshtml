@@ -1,0 +1,21 @@
+﻿@model IEnumerable<CarRentalSystem.Admin.Models.DealerDetailsOutputModel>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Total car ads</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var dealer in Model)
+        {
+            <tr>
+                <th>@dealer.Name</th>
+                <th>@dealer.PhoneNumber</th>
+                <th>@dealer.TotalCarAds</th>
+            </tr>
+        }
+    </tbody>
+</table>
