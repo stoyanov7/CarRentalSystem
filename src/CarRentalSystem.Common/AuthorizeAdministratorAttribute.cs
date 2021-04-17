@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Admin
+﻿namespace CarRentalSystem.Common
 {
     using Microsoft.AspNetCore.Authorization;
 
