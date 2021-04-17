@@ -94,9 +94,12 @@ services:
       environment:
          - ServiceEndpoints__Identity=http://identity
          - ServiceEndpoints__Statistics=http://statistics
+         - ServiceEndpoints__Dealers=http://dealers
       restart: on-failure  
       depends_on:
          - identity 
+         - statistics
+         - dealers
       networks: 
          - carrentalsystem-network
 networks:
