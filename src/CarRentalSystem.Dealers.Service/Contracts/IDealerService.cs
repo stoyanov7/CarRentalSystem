@@ -11,6 +11,8 @@
 
         Task<Dealer> FindByUserAsync(string userId);
 
+        Task<Dealer> FindByIdAsync(int id);
+
         Task<bool> IsDealerAsync(string userId);
 
         Task<int> GetDealerIdByUserIdAsync(string userId);

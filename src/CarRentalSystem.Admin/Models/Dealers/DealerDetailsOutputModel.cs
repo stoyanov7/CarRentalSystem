@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Admin.Models
+﻿namespace CarRentalSystem.Admin.Models.Dealers
 {
     public class DealerDetailsOutputModel
     {

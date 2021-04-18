@@ -17,8 +17,7 @@
         }
 
         public IActionResult Index()
-        {
-            var a = this.User.HasClaim(ClaimTypes.Role, "Administrator");
+        {            
             if (this.User.IsAdministrator())
             {
                 return this.RedirectToAction(nameof(StatisticsController.Index), "Statistics");

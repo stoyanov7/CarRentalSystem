@@ -40,11 +40,13 @@
             return this.Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route(nameof(Edit) + PathSeparator + Id)]
         public async Task<IActionResult> Edit(int id, EditDealerInputModel editDealerInputModel)
         {
-            var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
+            var dealer = this.currentUserService.IsAdministrator
+                ? await this.dealerService.FindByIdAsync(id)
+                : await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
 
             if (id != dealer.Id)
             {
