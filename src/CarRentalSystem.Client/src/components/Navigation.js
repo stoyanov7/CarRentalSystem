@@ -1,14 +1,24 @@
+import { LinkContainer } from 'react-router-bootstrap'
+
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 export default function Navigation() {
    return (
       <Navbar bg="dark" variant="dark">
-         <Navbar.Brand href="#home">Car Rental System</Navbar.Brand>
+         <LinkContainer to="/">
+            <Navbar.Brand>Car Rental System</Navbar.Brand>
+         </LinkContainer>         
          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#cars">Cars</Nav.Link>
-            <Nav.Link href="#login">Login</Nav.Link>
+            <LinkContainer to="/">
+               <Nav.Link>Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/cars">
+               <Nav.Link>Cars</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/login">
+               <Nav.Link>Login</Nav.Link>
+            </LinkContainer>          
          </Nav>
       </Navbar>
    )
