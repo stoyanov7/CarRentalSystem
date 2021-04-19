@@ -1,7 +1,7 @@
 namespace CarRentalSystem.Admin
 {
     using CarRentalSystem.Admin.Services;
-    using CarRentalSystem.Common;
+    using CarRentalSystem.Common.Extensions;
     using CarRentalSystem.Common.Configurations;
     using CarRentalSystem.Common.Services;
     using CarRentalSystem.Common.Services.Contracts;
@@ -27,7 +27,7 @@ namespace CarRentalSystem.Admin
                 .Get<ServiceEndpoints>(config => config.BindNonPublicProperties = true);
 
             services
-                .AddAutoMapper(Assembly.GetExecutingAssembly())
+                .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
                 .AddTokenAuthentication(this.Configuration)                 
                 .AddScoped<ICurrentTokenService, CurrentTokenService>()
                 .AddTransient<JwtCookieAuthenticationMiddleware>()

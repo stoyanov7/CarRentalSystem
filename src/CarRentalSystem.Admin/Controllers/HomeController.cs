@@ -1,20 +1,16 @@
 ﻿namespace CarRentalSystem.Admin.Controllers
 {
     using CarRentalSystem.Admin.Models;
-    using CarRentalSystem.Common;
+    using CarRentalSystem.Common.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System.Diagnostics;
-    using System.Security.Claims;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(ILogger<HomeController> logger) => this.logger = logger;
 
         public IActionResult Index()
         {            

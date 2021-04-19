@@ -1,4 +1,4 @@
-﻿namespace CarRentalSystem.Common
+﻿namespace CarRentalSystem.Common.Extensions
 {
     using System.Security.Claims;
 
