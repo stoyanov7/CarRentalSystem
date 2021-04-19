@@ -1,9 +1,7 @@
-import { Link } from 'react-router-dom';
-
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-export default function Login() {
+export default function Signup() {
    return (
       <div className="container-fluid">
          <div className="row">
@@ -21,11 +19,18 @@ export default function Login() {
                      <Form.Label>Password</Form.Label>
                      <Form.Control type="password" placeholder="Password" />
                   </Form.Group>
+                  <Form.Group controlId="name">
+                     <Form.Label>Name</Form.Label>
+                     <Form.Control type="text" placeholder="Name" />
+                  </Form.Group>
+                  <Form.Group controlId="phone">
+                     <Form.Label>Phone</Form.Label>
+                     <Form.Control type="phone" placeholder="Phone" />
+                  </Form.Group>
                   <Button variant="primary" type="submit">
                      Submit
                   </Button>
                </Form>
-               <small>don't have an account? Sign up <Link to="/signup">here</Link></small>
             </div>
             <div className="col-lg-4"></div>
          </div>
