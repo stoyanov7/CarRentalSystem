@@ -1,25 +1,83 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-export default function Login() {
+const Login = () => {
+   const [loginData, setLoginData] = useState({
+      email: '',
+      password: '',
+      errors: {}
+   });
+
+   let history = useHistory();
+
+   const handleSubmit = (event) => {
+      event.preventDefault();
+
+      axios.post('http://localhost:5001/Identity/Login', loginData)
+      .then(function (res) {
+         const token = `Bearer ${res.data.token}`;
+         localStorage.setItem('token', token);
+         axios.defaults.headers.common['Authorization'] = token;
+
+         history.push('/');
+      })
+      .catch((err) => {        
+         const errors = err.response.data.errors;
+         setLoginData({...loginData, errors });
+      });
+   }
+
+   const handleChange = (event) => {
+      setLoginData({
+         ...loginData,
+         [event.target.name]: event.target.value
+      })
+   }
+
+   const { errors } = loginData;
+
    return (
       <div className="container-fluid">
          <div className="row">
             <div className="col-lg-4"></div>
             <div className="col-lg-4">
-               <Form>
+               <Form noValidate onSubmit={handleSubmit}>
                   <Form.Group controlId="email">
                      <Form.Label>Email address</Form.Label>
-                     <Form.Control type="email" placeholder="Enter email" />
-                     <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                     </Form.Text>
+                     <Form.Control 
+                        type="email" 
+                        name="email" 
+                        placeholder="Enter email" 
+                        onChange={handleChange} 
+                     />
+                     {
+                        errors.Email && (
+                           errors.Email.map((err, index) => (
+                                 <Form.Text key={index} className="text-danger">{err}</Form.Text>
+                              )
+                           )
+                        )
+                     }
                   </Form.Group>
                   <Form.Group controlId="password">
                      <Form.Label>Password</Form.Label>
-                     <Form.Control type="password" placeholder="Password" />
+                     <Form.Control 
+                        type="password" 
+                        name="password" 
+                        placeholder="Password" 
+                        onChange={handleChange} 
+                     />
+                     {
+                        errors.Password && (
+                           <Form.Text className="text-danger">
+                              {errors.Password[0]}
+                        </Form.Text>
+                        )
+                     }
                   </Form.Group>
                   <Button variant="primary" type="submit">
                      Submit
@@ -32,3 +90,5 @@ export default function Login() {
       </div>
    )
 }
+
+export default Login

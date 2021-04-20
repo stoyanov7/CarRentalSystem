@@ -12,15 +12,13 @@ export default function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation />
-        <div className="container">
+        <Navigation />        
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/cars' component={Cars} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
-          </Switch>
-        </div>
+          </Switch>        
       </Router>      
     </div>    
   );
