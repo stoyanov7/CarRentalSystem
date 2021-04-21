@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
@@ -13,6 +14,7 @@ const Login = () => {
    });
 
    let history = useHistory();
+   let dispatch = useDispatch();
 
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -23,11 +25,13 @@ const Login = () => {
          localStorage.setItem('token', token);
          axios.defaults.headers.common['Authorization'] = token;
 
+         dispatch({ type: 'SET_AUTHENTICATED' });
+
          history.push('/');
       })
       .catch((err) => {        
          const errors = err.response.data.errors;
-         setLoginData({...loginData, errors });
+         setLoginData({ ...loginData, errors });
       });
    }
 

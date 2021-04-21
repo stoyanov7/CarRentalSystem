@@ -1,9 +1,21 @@
 import { LinkContainer } from 'react-router-bootstrap'
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-export default function Navigation() {
+const Navigation = () => {
+   const { authenticated } = useSelector(state => state.user);
+   let dispatch = useDispatch();
+
+   const logout = () => {     
+      localStorage.removeItem('token');
+      delete axios.defaults.headers.common['Authorization'];
+
+      dispatch({ type: 'SET_UNAUTHENTICATED' })    
+   }
+
    return (
       <Navbar bg="dark" variant="dark">
          <LinkContainer to="/">
@@ -16,10 +28,23 @@ export default function Navigation() {
             <LinkContainer to="/cars">
                <Nav.Link>Cars</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/login">
-               <Nav.Link>Login</Nav.Link>
-            </LinkContainer>          
+            {
+               authenticated ? (
+                  <>
+                     <Nav.Link>Create car</Nav.Link>
+                     <Nav.Link>My cars</Nav.Link>
+                     <Nav.Link>Profile</Nav.Link>
+                     <Nav.Link onClick={logout}>Logout</Nav.Link>
+                  </>
+               ) : (
+                  <LinkContainer to="/login">
+                     <Nav.Link>Login</Nav.Link>
+                  </LinkContainer>     
+               )
+            }                
          </Nav>
       </Navbar>
    )
 }
+
+export default Navigation
