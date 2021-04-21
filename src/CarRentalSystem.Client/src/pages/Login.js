@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const Login = () => {
+   useEffect(() => {
+   }, [])
+
    const [loginData, setLoginData] = useState({
       email: '',
-      password: '',
-      errors: {}
-   });
+      password: ''      
+   }); 
 
    let history = useHistory();
    let dispatch = useDispatch();
@@ -19,20 +21,7 @@ const Login = () => {
    const handleSubmit = (event) => {
       event.preventDefault();
 
-      axios.post('http://localhost:5001/Identity/Login', loginData)
-      .then(function (res) {
-         const token = `Bearer ${res.data.token}`;
-         localStorage.setItem('token', token);
-         axios.defaults.headers.common['Authorization'] = token;
-
-         dispatch({ type: 'SET_AUTHENTICATED' });
-
-         history.push('/');
-      })
-      .catch((err) => {        
-         const errors = err.response.data.errors;
-         setLoginData({ ...loginData, errors });
-      });
+      dispatch(loginUser(loginData, history));
    }
 
    const handleChange = (event) => {
@@ -40,9 +29,9 @@ const Login = () => {
          ...loginData,
          [event.target.name]: event.target.value
       })
-   }
+   }   
 
-   const { errors } = loginData;
+   const { errors } = useSelector(state => state.ui);    
 
    return (
       <div className="container-fluid">
@@ -59,7 +48,7 @@ const Login = () => {
                         onChange={handleChange} 
                      />
                      {
-                        errors.Email && (
+                        (errors && errors.Email) && (
                            errors.Email.map((err, index) => (
                                  <Form.Text key={index} className="text-danger">{err}</Form.Text>
                               )
@@ -76,7 +65,7 @@ const Login = () => {
                         onChange={handleChange} 
                      />
                      {
-                        errors.Password && (
+                        (errors && errors.Password) && (
                            <Form.Text className="text-danger">
                               {errors.Password[0]}
                         </Form.Text>
@@ -84,7 +73,7 @@ const Login = () => {
                      }
                   </Form.Group>
                   <Button variant="primary" type="submit">
-                     Submit
+                     Login
                   </Button>
                </Form>
                <small>don't have an account? Sign up <Link to="/signup">here</Link></small>
