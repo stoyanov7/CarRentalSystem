@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { logoutUser } from './redux/actions/userActions';
 
 import Navigation from './components/Navigation';
 
@@ -17,9 +18,9 @@ const token = localStorage.token;
 
 if (token) {
   const decodedToken = jwtDecode(token);
-
+  
   if (decodedToken.exp * 1000 < Date.now()) {
-    //store.dispatch(logoutUser())
+    store.dispatch(logoutUser())
     window.location.href = '/login';
   } else {
     store.dispatch({ type: 'SET_AUTHENTICATED' });

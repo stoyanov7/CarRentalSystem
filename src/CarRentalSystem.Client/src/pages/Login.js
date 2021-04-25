@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 const Login = () => {
    useEffect(() => {
-   }, [])
+   }, []);
 
    const [loginData, setLoginData] = useState({
       email: '',
