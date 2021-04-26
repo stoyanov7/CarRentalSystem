@@ -4,15 +4,16 @@ import {
    SET_UNAUTHENTICATED, 
    SET_ERRORS 
 } from '../types';
+import { environment } from '../../environments/environment';
 
 export const loginUser = (userData, history) => (dispatch) => {
    axios
-      .post('http://localhost:5001/Identity/Login', userData)
+      .post(`${environment.identityApiUrl}/Identity/Login`, userData)
       .then(function (res) {
          setAuthenticationHeader(res);
 
          axios
-            .get('http://localhost:5003/Dealers/GetDealerId')
+            .get(`${environment.dealersApiUrlApiUrl}/Dealers/GetDealerId`)
             .then((res) => {
                localStorage.setItem('dealerId', res.data);
                dispatch({ type: SET_AUTHENTICATED });
@@ -30,11 +31,11 @@ export const loginUser = (userData, history) => (dispatch) => {
 export const signupUser = (newUserData, history) => (dispatch) => {
    const { email, password, name, phoneNumber } = newUserData;
 
-   axios.post('http://localhost:5001/Identity/Register', { email, password })
+   axios.post(`${environment.identityApiUrl}/Identity/Register`, { email, password })
       .then((res) => {   
          setAuthenticationHeader(res);
          
-         axios.post('http://localhost:5003/Dealers/Create', { name, phoneNumber })
+         axios.post(`${environment.dealersApiUrlApiUrl}/Dealers/Create`, { name, phoneNumber })
          .then((res) => {
             localStorage.setItem('dealerId', res.data);
             dispatch({ type: SET_AUTHENTICATED });

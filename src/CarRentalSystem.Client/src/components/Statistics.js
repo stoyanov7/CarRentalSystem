@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Category from './category/Category';
 
+import { environment } from '../environments/environment';
+
 const Statistics = (props) => {
    const [statistics, setStatistics] = useState({});
    const [categories, setCategories] = useState([]);
 
    useEffect(() => {
       axios
-         .get('http://localhost:5005/Statistics/Full')
+         .get(`${environment.statisticsApiUrl}//Statistics/Full`)
          .then((res) => {
             setStatistics(res.data)
          })
          .catch((err) => console.log(err));
 
          axios 
-            .get('http://localhost:5003/CarAds/Categories')
+            .get(`${environment.dealersApiUrl}/CarAds/Categories`)
             .then((res) => {
                setCategories(res.data);
             })
