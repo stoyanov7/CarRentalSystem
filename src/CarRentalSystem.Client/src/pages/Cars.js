@@ -1,3 +1,11 @@
-export default function Cars() {
-   return <h1>Cars</h1>
+import React from 'react';
+
+import AllCars from "../components/AllCars"
+
+const Cars = () => {
+   return (     
+      <AllCars />
+   )
 } 
+
+export default Cars;
