@@ -13,6 +13,7 @@
         public StatisticsController(IStatisticsService statistics) => this.statistics = statistics;
 
         [HttpGet]
+        [Route(nameof(Full))]
         public async Task<StatisticsOutputModel> Full() => await this.statistics.Full<StatisticsOutputModel>();
     }
 }

@@ -1,24 +1,29 @@
 ﻿namespace CarRentalSystem.Common.Service
 {
     using CarRentalSystem.Common.Service.Contracts;
+    using CarRentalSystem.Common.Extensions;
     using Microsoft.AspNetCore.Http;
     using System;
     using System.Security.Claims;
 
     public class CurrentUserService : ICurrentUserService
     {
+        private readonly ClaimsPrincipal user;
+
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            var user = httpContextAccessor.HttpContext?.User;
+            this.user = httpContextAccessor.HttpContext?.User;
 
-            if (user == null)
+            if (this.user == null)
             {
                 throw new InvalidOperationException("This request does not have an authenticated user.");
             }
 
-            this.UserId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+            this.UserId = this.user.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public string UserId { get; }
+
+        public bool IsAdministrator => this.user.IsAdministrator();
     }
 }

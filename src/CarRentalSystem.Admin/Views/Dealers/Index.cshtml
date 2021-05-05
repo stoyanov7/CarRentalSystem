@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CarRentalSystem.Admin.Models.Dealers.DealerDetailsOutputModel>
+
+@{ ViewData["Title"] = "All Dealers"; }
+
+<div class="row">
+    <div class="col-lg-4">
+        <h2>All Dealers</h2>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Total car ads</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dealer in Model)
+        {
+            <tr>
+                <td>@dealer.Name</td>
+                <td>@dealer.PhoneNumber</td>
+                <td>@dealer.TotalCarAds</td>
+                <td>
+                    <a
+                       asp-area=""
+                       asp-controller="Dealers"
+                       asp-action="Edit"
+                       asp-route-id="@dealer.Id"
+                       class="btn btn-warning"
+                    >
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
