@@ -24,6 +24,7 @@ namespace CarRentalSystem.Statistics.API
                 .AddTokenAuthentication(this.Configuration)
                 .AddHealthChecker(this.Configuration)
                 .AddTransient<IStatisticsService, StatisticsService>()
+                .AddTransient<ICarAdViewService, CarAdViewService>()
                 .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
                 .AddControllers();
 

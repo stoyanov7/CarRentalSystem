@@ -13,7 +13,7 @@ export const loginUser = (userData, history) => (dispatch) => {
          setAuthenticationHeader(res);
 
          axios
-            .get(`${environment.dealersApiUrlApiUrl}/Dealers/GetDealerId`)
+            .get(`${environment.dealersApiUrl}/Dealers/GetDealerId`)
             .then((res) => {
                localStorage.setItem('dealerId', res.data);
                dispatch({ type: SET_AUTHENTICATED });

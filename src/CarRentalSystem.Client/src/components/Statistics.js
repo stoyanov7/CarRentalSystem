@@ -10,7 +10,7 @@ const Statistics = (props) => {
 
    useEffect(() => {
       axios
-         .get(`${environment.statisticsApiUrl}//Statistics/Full`)
+         .get(`${environment.statisticsApiUrl}/Statistics/Full`)
          .then((res) => {
             setStatistics(res.data)
          })

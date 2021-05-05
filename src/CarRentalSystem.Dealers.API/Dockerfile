@@ -1,3 +1,5 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
@@ -12,10 +14,11 @@ COPY ["CarRentalSystem.Dealers.Service/CarRentalSystem.Dealers.Service.csproj", 
 RUN dotnet restore "CarRentalSystem.Dealers.API/CarRentalSystem.Dealers.API.csproj"
 COPY . .
 WORKDIR "/src/CarRentalSystem.Dealers.API"
-RUN dotnet build "CarRentalSystem.Dealers.API.csproj" -c Release -o /app/build
+ARG Mode=Debug
+RUN dotnet build "CarRentalSystem.Dealers.API.csproj" -c $Mode -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CarRentalSystem.Dealers.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "CarRentalSystem.Dealers.API.csproj" -c $Mode -o /app/publish
 
 FROM base AS final
 WORKDIR /app

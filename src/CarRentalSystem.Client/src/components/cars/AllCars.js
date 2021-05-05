@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import { environment } from '../../environments/environment';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { search } from '../../redux/actions/carActions';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 const AllCars = () => {
-   const [carAds, setCarAds] = useState([]);
+   let dispatch = useDispatch();
 
    useEffect(() => {
-      axios
-         .get(`${environment.dealersApiUrl}/CarAds/Search`)
-         .then((res) => {
-            setCarAds(res.data.carAds);
-         })
-   }, []);
+      dispatch(search());
+   }, [dispatch]);
 
+   const { loading } = useSelector(state => state.ui);
+   const { carAds } = useSelector(state => state.car)
+   
    const NoCarsFound = () => {
       return (
          <div>
@@ -34,7 +34,7 @@ const AllCars = () => {
                   <Card.Img variant="top" src={carAd.imageUrl} />
                   <Card.Body>
                      <Card.Title>{carAd.manufacturer}</Card.Title>
-                     <Card.Text>{carAd.pricePerDay}</Card.Text>
+                     <Card.Text>Price per day ${carAd.pricePerDay}</Card.Text>
                      <Button variant="primary">Details</Button>
                   </Card.Body>
                </Card>
@@ -43,7 +43,7 @@ const AllCars = () => {
       )
    }
 
-   return carAds.length !== 0 ? <ListCarAds carAds={carAds} /> : <NoCarsFound />
+   return (!loading && Object.keys(carAds).length > 0) ? <ListCarAds carAds={carAds} /> : <NoCarsFound />
 }
 
 export default AllCars;

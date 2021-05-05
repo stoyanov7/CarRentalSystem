@@ -3,13 +3,15 @@ import thunk from 'redux-thunk';
 
 import userReducer from './reducers/userReducer';
 import uiReducer from './reducers/uiReducer';
+import carReducer from './reducers/carReducer';
 
 const initialState = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
    user: userReducer,
-   ui: uiReducer
+   ui: uiReducer,
+   car: carReducer
 });
 
 const composeEnhancers =
