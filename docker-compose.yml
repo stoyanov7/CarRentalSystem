@@ -37,6 +37,8 @@ services:
       build:
          context: ./src
          dockerfile: ./CarRentalSystem.Dealers.API/Dockerfile
+         args: 
+            - Mode=Debug
       ports: 
          - "5003:80"
       env_file: ./src/CarRentalSystem.Common/Common.env
