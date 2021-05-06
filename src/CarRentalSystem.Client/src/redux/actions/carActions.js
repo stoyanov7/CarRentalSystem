@@ -3,11 +3,15 @@ import axios from 'axios';
 import { LOADING_UI, STOP_LOADING_UI } from '../types';
 import { environment } from '../../environments/environment';
 
-export const search = () => (dispatch) => {
+export const search = (searchData) => (dispatch) => {
    dispatch({ type: LOADING_UI });
 
    axios
-      .get(`${environment.dealersApiUrl}/CarAds/Search`)
+      .get(`${environment.dealersApiUrl}/CarAds/Search`, {
+         params: {
+            ...searchData
+         }
+      })
       .then((res) => {
          dispatch({
             type: 'SET_SEARCH_CARADS',
@@ -15,5 +19,6 @@ export const search = () => (dispatch) => {
          });
 
          dispatch({ type: STOP_LOADING_UI });
-      });
+      })
+      .catch((err) => console.log(err));
 }

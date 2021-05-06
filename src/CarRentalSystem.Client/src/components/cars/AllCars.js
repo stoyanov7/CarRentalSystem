@@ -34,7 +34,9 @@ const AllCars = () => {
                   <Card.Img variant="top" src={carAd.imageUrl} />
                   <Card.Body>
                      <Card.Title>{carAd.manufacturer}</Card.Title>
-                     <Card.Text>Price per day ${carAd.pricePerDay}</Card.Text>
+                     <Card.Text>Model: {carAd.model}</Card.Text>
+                     <Card.Text>Price per day: ${carAd.pricePerDay}</Card.Text>
+                     <Card.Text>Category: {carAd.category}</Card.Text>
                      <Button variant="primary">Details</Button>
                   </Card.Body>
                </Card>

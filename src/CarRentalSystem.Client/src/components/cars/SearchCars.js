@@ -19,8 +19,8 @@ const SearchCars = () => {
 
    const handleSubmit = (event) => {
       event.preventDefault();   
-      console.log(searchData)
-      dispatch(search());
+      
+      dispatch(search(searchData));
    }
 
    const handleChange = (event) => {
