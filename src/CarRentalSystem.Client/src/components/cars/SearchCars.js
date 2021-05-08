@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { search } from '../../redux/actions/carActions';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import CreateCar from './CreateCar';
 
 const SearchCars = () => {
    const dispatch = useDispatch();
+   const categories = useSelector(state => state.car.categories);
+   const { authenticated } = useSelector(state => state.user);
 
    const [searchData, setSearchData] = useState({
       manufacturer: '',
@@ -28,7 +31,7 @@ const SearchCars = () => {
          ...searchData,
          [event.target.name]: event.target.value
       })
-   } 
+   }
 
    return (
       <div className="col-lg-3">
@@ -58,7 +61,9 @@ const SearchCars = () => {
                   custom
                   name="category"
                   onChange={handleChange}
-               />
+               >
+                 { categories && (categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)) }
+               </Form.Control>
             </Form.Group>
             <Form.Group controlId="minPricePerDay">
                <Form.Label>Select min price per day:</Form.Label>
@@ -79,6 +84,7 @@ const SearchCars = () => {
                />
             </Form.Group>
             <Button variant="primary" type="submit">Search</Button>
+            { authenticated && <CreateCar /> }
          </Form>
       </div>
    )
