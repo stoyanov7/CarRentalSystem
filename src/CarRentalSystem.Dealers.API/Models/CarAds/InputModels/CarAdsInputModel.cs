@@ -2,7 +2,6 @@
 {
     using CarRentalSystem.Dealers.Service.Contracts;
 
-
     public class CarAdsInputModel : ICarAdsDto
     {
         public string Manufacturer { get; set; }
