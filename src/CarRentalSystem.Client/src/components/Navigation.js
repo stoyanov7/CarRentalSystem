@@ -9,9 +9,7 @@ const Navigation = () => {
    const { authenticated } = useSelector(state => state.user);
    let dispatch = useDispatch();
 
-   const handleLogout = () => {     
-      dispatch(logoutUser());
-   }
+   const handleLogout = () => dispatch(logoutUser());
 
    return (
       <Navbar bg="dark" variant="dark">
