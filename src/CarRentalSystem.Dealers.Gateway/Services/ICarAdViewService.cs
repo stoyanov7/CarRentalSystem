@@ -7,7 +7,7 @@
 
     public interface ICarAdViewService
     {
-        [Get("/CarAdViews")]
+        [Get("/CarAdViews/TotalViews")]
         Task<IEnumerable<CarAdViewOutputModel>> TotalViews([Query(CollectionFormat.Multi)] IEnumerable<int> ids);
     }
 }

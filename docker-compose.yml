@@ -37,6 +37,8 @@ services:
       build:
          context: ./src
          dockerfile: ./CarRentalSystem.Dealers.API/Dockerfile
+         args: 
+            - Mode=Debug
       ports: 
          - "5003:80"
       env_file: ./src/CarRentalSystem.Common/Common.env
@@ -50,11 +52,36 @@ services:
       depends_on:
          - data
    
+   dealers-gateway:
+      container_name: dealers-gateway
+      build:
+         context: ./src
+         dockerfile: ./CarRentalSystem.Dealers.Gateway/Dockerfile
+         args: 
+            - Mode=Debug
+      ports: 
+         - "5011:80"
+      env_file: ./src/CarRentalSystem.Common/Common.env
+      environment:
+         - ServiceEndpoints__Statistics=http://statistics
+         - ServiceEndpoints__Dealers=http://dealers
+      restart: on-failure
+      volumes:
+         - ./.aspnet/dealers-gateway/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+      networks: 
+         - carrentalsystem-network
+      depends_on:
+         - data
+         - dealers
+         - statistics
+      
    statistics:
       container_name: statistics
       build:
             context: ./src
             dockerfile: ./CarRentalSystem.Statistics.API/Dockerfile
+            args: 
+               - Mode=Debug
       ports: 
             - "5005:80"
       env_file: ./src/CarRentalSystem.Common/Common.env

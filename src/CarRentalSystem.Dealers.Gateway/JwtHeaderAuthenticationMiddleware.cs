@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class JwtHeaderAuthenticationMiddleware
+    public class JwtHeaderAuthenticationMiddleware : IMiddleware
     {
         private readonly ICurrentTokenService currentToken;
 
@@ -15,7 +15,7 @@
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var token = context.Request.Headers["Authentication"].ToString();
+            var token = context.Request.Headers["Authorization"].ToString();
 
             if (!string.IsNullOrWhiteSpace(token))
             {

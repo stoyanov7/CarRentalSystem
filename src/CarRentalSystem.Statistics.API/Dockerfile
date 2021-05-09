@@ -14,10 +14,11 @@ COPY ["CarRentalSystem.Statistics.Data/CarRentalSystem.Statistics.Data.csproj", 
 RUN dotnet restore "CarRentalSystem.Statistics.API/CarRentalSystem.Statistics.API.csproj"
 COPY . .
 WORKDIR "/src/CarRentalSystem.Statistics.API"
-RUN dotnet build "CarRentalSystem.Statistics.API.csproj" -c Release -o /app/build
+ARG Mode=Debug
+RUN dotnet build "CarRentalSystem.Statistics.API.csproj" -c $Mode -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CarRentalSystem.Statistics.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "CarRentalSystem.Statistics.API.csproj" -c $Mode -o /app/publish
 
 FROM base AS final
 WORKDIR /app

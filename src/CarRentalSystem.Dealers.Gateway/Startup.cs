@@ -50,9 +50,9 @@ namespace CarRentalSystem.Dealers.Gateway
 
             app
                 .UseHttpsRedirection()
-                .UseRouting()
-                .UseAuthorization()
+                .UseRouting()                
                 .UseJwtHeaderAuthentication()
+                .UseAuthorization()
                 .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
