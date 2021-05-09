@@ -1,33 +1,29 @@
 ﻿namespace CarRentalSystem.Admin.Controllers
 {
     using CarRentalSystem.Admin.Models;
+    using CarRentalSystem.Common.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System.Diagnostics;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(ILogger<HomeController> logger) => this.logger = logger;
 
         public IActionResult Index()
-        {
-            return View();
-        }
+        {            
+            if (this.User.IsAdministrator())
+            {
+                return this.RedirectToAction(nameof(StatisticsController.Index), "Statistics");
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
     }
 }

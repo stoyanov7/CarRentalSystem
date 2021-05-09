@@ -9,6 +9,7 @@
     using CarRentalSystem.Dealers.Service.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class DealersController : ApiController
@@ -25,7 +26,7 @@
         [HttpPost]
         [Authorize]
         [Route(nameof(Create))]
-        public async Task<ActionResult> Create(CreateDealerInputModel createDealerInputModel)
+        public async Task<IActionResult> Create(CreateDealerInputModel createDealerInputModel)
         {
             var dealer = new Dealer
             {
@@ -39,11 +40,13 @@
             return this.Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route(nameof(Edit) + PathSeparator + Id)]
-        public async Task<ActionResult> Edit(int id, EditDealerInputModel editDealerInputModel)
+        public async Task<IActionResult> Edit(int id, EditDealerInputModel editDealerInputModel)
         {
-            var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
+            var dealer = this.currentUserService.IsAdministrator
+                ? await this.dealerService.FindByIdAsync(id)
+                : await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
 
             if (id != dealer.Id)
             {
@@ -78,5 +81,11 @@
 
             return await this.dealerService.GetDealerIdByUserIdAsync(this.currentUserService.UserId);
         }
+
+        [HttpGet]
+        [AuthorizeAdministrator]
+        [Route(nameof(GetAllDealers))]
+        public async Task<IEnumerable<DealerDetailsOutputModel>> GetAllDealers()
+            => await this.dealerService.GetAllDealersAsync<DealerDetailsOutputModel>();
     }
 }

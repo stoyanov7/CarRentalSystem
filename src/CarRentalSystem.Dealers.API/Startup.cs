@@ -20,7 +20,7 @@ namespace CarRentalSystem.Dealers.API
             .AddDatabase<DealersContext>(this.Configuration)
             .AddApplicationSettings(this.Configuration)
             .AddTokenAuthentication(this.Configuration)
-            .AddAutoMapper(Assembly.GetExecutingAssembly())
+            .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
             .AddServices()
             .AddHealthChecker(this.Configuration)
             .AddControllers();

@@ -5,8 +5,8 @@
 
     public class StatisticsOutputModel : IMapFrom<Statistics>
     {
-        public int TotalCarAds { get; set; }
+        public long TotalCarAds { get; set; }
 
-        public int TotalRentedCars { get; set; }
+        public long TotalRentedCars { get; set; }
     }
 }
