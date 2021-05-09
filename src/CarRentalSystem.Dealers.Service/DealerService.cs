@@ -7,6 +7,7 @@
     using CarRentalSystem.Dealers.Service.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -28,6 +29,8 @@
 
         public async Task<Dealer> FindByUserAsync(string userId) => await this.FindByUserAsync(userId, dealer => dealer);
 
+        public async Task<Dealer> FindByIdAsync(int id) => await this.Context.FindAsync<Dealer>(id);
+
         public async Task<bool> IsDealerAsync(string userId) => await this.All().AnyAsync(d => d.UserId == userId);
 
         public Task<int> GetDealerIdByUserIdAsync(string userId) => this.FindByUserAsync(userId, dealer => dealer.Id);
@@ -37,6 +40,11 @@
                 .All()
                 .Where(d => d.Id == dealerId)
                 .AnyAsync(d => d.CarAds.Any(c => c.Id == carAdId));
+
+        public async Task<IEnumerable<TModel>> GetAllDealersAsync<TModel>()
+            => await this.mapper
+                .ProjectTo<TModel>(this.All())
+                .ToListAsync();
 
         private async Task<T> FindByUserAsync<T>(string userId, Expression<Func<Dealer, T>> selector)
         {

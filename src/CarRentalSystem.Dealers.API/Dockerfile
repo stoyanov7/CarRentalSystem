@@ -12,10 +12,11 @@ COPY ["CarRentalSystem.Dealers.Service/CarRentalSystem.Dealers.Service.csproj", 
 RUN dotnet restore "CarRentalSystem.Dealers.API/CarRentalSystem.Dealers.API.csproj"
 COPY . .
 WORKDIR "/src/CarRentalSystem.Dealers.API"
-RUN dotnet build "CarRentalSystem.Dealers.API.csproj" -c Release -o /app/build
+ARG Mode=Debug
+RUN dotnet build "CarRentalSystem.Dealers.API.csproj" -c $Mode -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CarRentalSystem.Dealers.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "CarRentalSystem.Dealers.API.csproj" -c $Mode -o /app/publish
 
 FROM base AS final
 WORKDIR /app

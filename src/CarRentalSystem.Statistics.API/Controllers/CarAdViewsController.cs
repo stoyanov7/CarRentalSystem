@@ -21,6 +21,7 @@
 
         [HttpGet]
         [Authorize]
+        [Route(nameof(TotalViews))]
         public async Task<IEnumerable<CarAdViewOutputModel>> TotalViews([FromQuery] IEnumerable<int> ids)
             => await this.carAdViewService.GetTotalViews<CarAdViewOutputModel>(ids);
     }
