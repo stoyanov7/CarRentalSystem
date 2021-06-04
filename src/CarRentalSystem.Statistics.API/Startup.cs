@@ -2,6 +2,7 @@ namespace CarRentalSystem.Statistics.API
 {
     using CarRentalSystem.Common.Configurations;
     using CarRentalSystem.Statistics.API.Configurations;
+    using CarRentalSystem.Statistics.API.Messages;
     using CarRentalSystem.Statistics.Data;
     using CarRentalSystem.Statistics.Service;
     using CarRentalSystem.Statistics.Service.Contracts;
@@ -25,6 +26,7 @@ namespace CarRentalSystem.Statistics.API
                 .AddHealthChecker(this.Configuration)
                 .AddTransient<IStatisticsService, StatisticsService>()
                 .AddTransient<ICarAdViewService, CarAdViewService>()
+                .AddMessaging(typeof(CarAdCreatedConsumer))
                 .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
                 .AddControllers();
 

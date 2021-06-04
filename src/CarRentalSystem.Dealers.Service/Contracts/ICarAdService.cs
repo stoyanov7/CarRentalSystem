@@ -7,6 +7,10 @@
 
     public interface ICarAdService : IDataService<CarAd>
     {
+        Task<CarAd> CreateCarAdAsync(string manufacturer, string model, Category category, string imageUrl, decimal pricePerDay, bool hasClimateControl, int numberOfSeats, int transmissionType);
+
+        Task EditCarAdAsync(int id, int categoryId, string manufacturer, string model, string imageUrl, decimal pricePerDay, bool hasClimateControl, int numberOfSeats, int transmissionType);
+
         Task<TModel> GetDetails<TModel>(int id);
 
         Task<CarAd> FindByIdAsync(int id);
@@ -18,5 +22,7 @@
         Task<int> Total(ICarAdsDto query);
 
         Task<IEnumerable<TModel>> Mine<TModel>(int dealerId, ICarAdsDto query);
+
+        Task ChangeAvailabilityAsync(int id);
     }
 }

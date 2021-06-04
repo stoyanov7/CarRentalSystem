@@ -8,6 +8,7 @@ namespace CarRentalSystem.Dealers.API
     using CarRentalSystem.Dealers.API.Configurations;
     using CarRentalSystem.Dealers.Data;
     using System.Reflection;
+    using MassTransit;
 
     public class Startup
     {
@@ -17,14 +18,15 @@ namespace CarRentalSystem.Dealers.API
 
         public void ConfigureServices(IServiceCollection services)
             => services
-            .AddDatabase<DealersContext>(this.Configuration)
-            .AddApplicationSettings(this.Configuration)
-            .AddTokenAuthentication(this.Configuration)
-            .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
-            .AddServices()
-            .AddHealthChecker(this.Configuration)
-            .AddControllers()
-            .AddNewtonsoftJson();
+                .AddDatabase<DealersContext>(this.Configuration)
+                .AddApplicationSettings(this.Configuration)
+                .AddTokenAuthentication(this.Configuration)
+                .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
+                .AddServices()
+                .AddMessaging()
+                .AddHealthChecker(this.Configuration)
+                .AddControllers()
+                .AddNewtonsoftJson();
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             => app

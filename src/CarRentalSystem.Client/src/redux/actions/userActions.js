@@ -35,7 +35,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
       .then((res) => {   
          setAuthenticationHeader(res);
          
-         axios.post(`${environment.dealersApiUrlApiUrl}/Dealers/Create`, { name, phoneNumber })
+         axios.post(`${environment.dealersApiUrl}/Dealers/Create`, { name, phoneNumber })
          .then((res) => {
             localStorage.setItem('dealerId', res.data);
             dispatch({ type: SET_AUTHENTICATED });

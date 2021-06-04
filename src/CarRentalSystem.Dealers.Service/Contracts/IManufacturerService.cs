@@ -7,5 +7,7 @@
     public interface IManufacturerService : IDataService<Manufacturer>
     {
         Task<TModel> FindByNameAsync<TModel>(string name);
+
+        Task<Manufacturer> CreateOrUpdateManufacturer(string name);
     }
 }

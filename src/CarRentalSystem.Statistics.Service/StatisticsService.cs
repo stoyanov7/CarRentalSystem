@@ -22,6 +22,14 @@
             => await this.mapper
                 .ProjectTo<TModel>(this.All())
                 .FirstOrDefaultAsync();
+
+        public async Task IncrementCarAd()
+        {
+            var statistics = await this.All().SingleOrDefaultAsync();
+            statistics.TotalCarAds++;
+
+            await this.Context.SaveChangesAsync();
+        }
        
     }
 }

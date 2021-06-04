@@ -1,20 +1,11 @@
 ﻿namespace CarRentalSystem.Dealers.API.Models.CarAds.OutputModels
 {
-    public class CreateCarAdOutputModel
-    {
-        public CreateCarAdOutputModel(int id, string manufacturer, string model, int category, string imageUrl, decimal pricePerDay, bool hasClimateControl, int numberOfSeats, int transmissionType)
-        {
-            this.Id = id;
-            this.Manufacturer = manufacturer;
-            this.Model = model;
-            this.Category = category;
-            this.ImageUrl = imageUrl;
-            this.PricePerDay = pricePerDay;
-            this.HasClimateControl = hasClimateControl;
-            this.NumberOfSeats = numberOfSeats;
-            this.TransmissionType = transmissionType;
-        }
+    using AutoMapper;
+    using CarRentalSystem.Common.MappingProfiles;
+    using CarRentalSystem.Dealers.Data.Models;
 
+    public class CreateCarAdOutputModel : IMapFrom<CarAd>
+    {       
         public int Id { get; set; }
 
         public string Manufacturer { get; set; }
@@ -32,5 +23,15 @@
         public int NumberOfSeats { get; set; }
 
         public int TransmissionType { get; set; }
+
+        public void Mapping(Profile prifile)
+            => prifile
+                .CreateMap<CarAd, CreateCarAdOutputModel>()
+                .ForMember(ad => ad.Manufacturer, cfg => cfg.MapFrom(ad => ad.Manufacturer.Name))
+                .ForMember(ad => ad.Category, cfg => cfg.MapFrom(ad => ad.Category.Id))
+                .ForMember(ad => ad.HasClimateControl, cfg => cfg.MapFrom(ad => ad.Options.HasClimateControl))
+                .ForMember(ad => ad.NumberOfSeats, cfg => cfg.MapFrom(ad => ad.Options.NumberOfSeats))
+                .ForMember(ad => ad.TransmissionType, cfg => cfg.MapFrom(ad => ad.Options.TransmissionType))
+                .ReverseMap();
     }
 }

@@ -12,77 +12,53 @@
     using System.Collections.Generic;
     using CarRentalSystem.Dealers.API.Models.Categories;
     using CarRentalSystem.Common.Service.Contracts;
+    using AutoMapper;
 
     public class CarAdsController : ApiController
     {
         private readonly IDealerService dealerService;
         private readonly ICurrentUserService currentUserService;
         private readonly ICategoryService categoryService;
-        private readonly IManufacturerService manufacturerService;
         private readonly ICarAdService carAdService;
+        private readonly IMapper mapper;
 
         public CarAdsController(
             IDealerService dealerService,
             ICurrentUserService currentUserService,
             ICategoryService categoryService,
-            IManufacturerService manufacturerService,
-            ICarAdService carAdService)
+            ICarAdService carAdService,
+            IMapper mapper)
         {
             this.dealerService = dealerService;
             this.currentUserService = currentUserService;
             this.categoryService = categoryService;
-            this.manufacturerService = manufacturerService;
             this.carAdService = carAdService;
-            
+            this.mapper = mapper;
         }
 
         [HttpPost]
         [Authorize]
         [Route(nameof(Create))]
-        public async Task<ActionResult<CreateCarAdOutputModel>> Create(CarAdInputModel carAdInputModel)
-        {
-            var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
-            var category = await this.categoryService.FindByIdAsync<Category>(carAdInputModel.Category);
+        public async Task<ActionResult<CreateCarAdOutputModel>> Create(CarAdInputModel inputModel)
+        {            
+            var category = await this.categoryService.FindByIdAsync<Category>(inputModel.Category);
 
             if (category == null)
             {
                 return this.BadRequest(Result.Failure("Category does not exist."));
             }
 
-            var manufacturer = await this.manufacturerService
-                .FindByNameAsync<Manufacturer>(carAdInputModel.Manufacturer);
+            var carAd = this.carAdService.CreateCarAdAsync(inputModel.Manufacturer, inputModel.Model, category, inputModel.ImageUrl, inputModel.PricePerDay, inputModel.HasClimateControl, inputModel.NumberOfSeats, inputModel.TransmissionType);
 
-            manufacturer ??= new Manufacturer
-            {
-                Name = carAdInputModel.Manufacturer
-            };
+            var model = this.mapper.Map<CreateCarAdOutputModel>(carAd);
 
-
-            var carAd = new CarAd
-            {
-                Dealer = dealer,
-                Manufacturer = manufacturer,
-                Model = carAdInputModel.Model,
-                Category = category,
-                ImageUrl = carAdInputModel.ImageUrl,
-                PricePerDay = carAdInputModel.PricePerDay,
-                Options = new Options
-                {
-                    HasClimateControl = carAdInputModel.HasClimateControl,
-                    NumberOfSeats = carAdInputModel.NumberOfSeats,
-                    TransmissionType = (TransmissionType)carAdInputModel.TransmissionType
-                }
-            };
-
-            await this.carAdService.Save(carAd);
-
-            return new CreateCarAdOutputModel(carAd.Id, manufacturer.Name, carAdInputModel.Model, category.Id, carAdInputModel.ImageUrl, carAdInputModel.PricePerDay, carAdInputModel.HasClimateControl, carAdInputModel.NumberOfSeats, carAdInputModel.TransmissionType);
+            return model;
         }
 
         [HttpPost]
         [Authorize]
         [Route(nameof(Edit) + PathSeparator + Id)]
-        public async Task<ActionResult> Edit(int id, CarAdInputModel carAdInputModel)
+        public async Task<ActionResult> Edit(int id, CarAdInputModel inputModel)
         {
             var dealerId = await this.dealerService.GetDealerIdByUserIdAsync(this.currentUserService.UserId);
             var dealerHasCar = await this.dealerService.HasCarAd(dealerId, id);
@@ -92,30 +68,7 @@
                 return this.BadRequest(Result.Failure("You cannot edit this car ad."));
             }
 
-            var category = await this.categoryService.FindByIdAsync<Category>(carAdInputModel.Category);
-            var manufacturer = await this.manufacturerService
-                .FindByNameAsync<Manufacturer>(carAdInputModel.Manufacturer);
-
-            manufacturer ??= new Manufacturer
-            {
-                Name = carAdInputModel.Manufacturer
-            };
-
-            var carAd = await this.carAdService.FindByIdAsync(id);
-
-            carAd.Manufacturer = manufacturer;
-            carAd.Model = carAdInputModel.Model;
-            carAd.Category = category;
-            carAd.ImageUrl = carAdInputModel.ImageUrl;
-            carAd.PricePerDay = carAdInputModel.PricePerDay;
-            carAd.Options = new Options
-            {
-                HasClimateControl = carAdInputModel.HasClimateControl,
-                NumberOfSeats = carAdInputModel.NumberOfSeats,
-                TransmissionType = (TransmissionType)carAdInputModel.TransmissionType
-            };
-
-            await this.carAdService.Save(carAd);
+            await this.carAdService.EditCarAdAsync(id, inputModel.Category, inputModel.Manufacturer, inputModel.Model, inputModel.ImageUrl, inputModel.PricePerDay, inputModel.HasClimateControl, inputModel.NumberOfSeats, inputModel.TransmissionType);
 
             return Result.Success;
         }
@@ -126,7 +79,6 @@
         public async Task<ActionResult<bool>> Delete(int id)
         {
             var dealerId = await this.dealerService.GetDealerIdByUserIdAsync(this.currentUserService.UserId);
-
             var dealerHasCar = await this.dealerService.HasCarAd(dealerId, id);
 
             if (!dealerHasCar)
@@ -181,10 +133,7 @@
                 return this.BadRequest(Result.Failure("You cannot edit this car ad."));
             }
 
-            var carAd = await this.carAdService.FindByIdAsync(id);
-            carAd.IsAvailable = !carAd.IsAvailable;
-
-            await this.carAdService.Save(carAd);
+            await this.carAdService.ChangeAvailabilityAsync(id);
 
             return Result.Success;
         }

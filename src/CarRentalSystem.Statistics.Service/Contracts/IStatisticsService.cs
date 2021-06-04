@@ -5,5 +5,7 @@
     public interface IStatisticsService
     {
         Task<TModel> Full<TModel>();
+
+        Task IncrementCarAd();
     }
 }

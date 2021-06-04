@@ -37,7 +37,7 @@ const AllCars = () => {
                      <Card.Text>Model: {carAd.model}</Card.Text>
                      <Card.Text>Price per day: ${carAd.pricePerDay}</Card.Text>
                      <Card.Text>Category: {carAd.category}</Card.Text>
-                     <Button variant="primary">Details</Button>
+                     <Button variant="primary" type="button">Details</Button>
                   </Card.Body>
                </Card>
             </div>

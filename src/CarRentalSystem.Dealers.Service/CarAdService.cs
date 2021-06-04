@@ -1,10 +1,13 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Messages.Dealers;
     using CarRentalSystem.Common.Service;
+    using CarRentalSystem.Common.Service.Contracts;
     using CarRentalSystem.Dealers.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using CarRentalSystem.Dealers.Service.Contracts;
+    using MassTransit;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,11 +18,84 @@
         private const int CarAdsPerPage = 10;
 
         private readonly IMapper mapper;
+        private readonly IDealerService dealerService;
+        private readonly ICurrentUserService currentUserService;
+        private readonly IManufacturerService manufacturerService;
+        private readonly ICategoryService categoryService;
+        private readonly IBus publisher;
 
-        public CarAdService(DealersContext dealersContext, IMapper mapper)
+        public CarAdService(
+            DealersContext dealersContext,
+            IMapper mapper,
+            IDealerService dealerService,
+            ICurrentUserService currentUserService,
+            IManufacturerService manufacturerService,
+            ICategoryService categoryService,
+            IBus publisher)
             : base(dealersContext)
         {
             this.mapper = mapper;
+            this.dealerService = dealerService;
+            this.currentUserService = currentUserService;
+            this.manufacturerService = manufacturerService;
+            this.categoryService = categoryService;
+            this.publisher = publisher;
+        }
+
+        public async Task<CarAd> CreateCarAdAsync(string manufacturer, string model, Category category, string imageUrl, decimal pricePerDay, bool hasClimateControl, int numberOfSeats, int transmissionType)
+        {
+            var dealer = await this.dealerService.FindByUserAsync(this.currentUserService.UserId);
+
+            var foundManufacturer = await this.manufacturerService
+                .CreateOrUpdateManufacturer(manufacturer);
+
+            var carAd = new CarAd
+            {
+                Dealer = dealer,
+                Manufacturer = foundManufacturer,
+                Model = model,
+                Category = category,
+                ImageUrl = imageUrl,
+                PricePerDay = pricePerDay,
+                Options = new Options
+                {
+                    HasClimateControl = hasClimateControl,
+                    NumberOfSeats = numberOfSeats,
+                    TransmissionType = (TransmissionType)transmissionType
+                }
+            };
+
+            await this.Save(carAd);
+
+            await this.publisher.Publish(new CarAdCreatedMessage
+            {
+                CarAdId = carAd.Id
+            });
+
+            return carAd;
+        }
+
+        public async Task EditCarAdAsync(int id, int categoryId, string manufacturer, string model, string imageUrl, decimal pricePerDay, bool hasClimateControl, int numberOfSeats, int transmissionType)
+        {
+            var category = await this.categoryService.FindByIdAsync<Category>(categoryId);
+            var foundManufacturer = await this.manufacturerService
+                .CreateOrUpdateManufacturer(manufacturer);
+
+            var carAd = await this.FindByIdAsync(id);
+
+            carAd.Manufacturer = foundManufacturer;
+            carAd.Model = model;
+            carAd.Category = category;
+            carAd.ImageUrl = imageUrl;
+            carAd.PricePerDay = pricePerDay;
+            carAd.Options = new Options
+            {
+                HasClimateControl = hasClimateControl,
+                NumberOfSeats = numberOfSeats,
+                TransmissionType = (TransmissionType)transmissionType
+            };
+
+            await this.Save(carAd);
         }
 
         public async Task<TModel> GetDetails<TModel>(int id)
@@ -68,6 +144,14 @@
                 .ToListAsync())
                 .Skip((query.Page - 1) * CarAdsPerPage)
                 .Take(CarAdsPerPage);
+
+        public async Task ChangeAvailabilityAsync(int id)
+        {
+            var carAd = await this.FindByIdAsync(id);
+            carAd.IsAvailable = !carAd.IsAvailable;
+
+            await this.Save(carAd);
+        }
 
         private IQueryable<CarAd> AllAvailable(int id)
             => this

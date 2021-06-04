@@ -13,7 +13,21 @@ services:
          - sqldata:/var/opt/mssql 
       networks: 
          - carrentalsystem-network
-         
+       
+   messages:
+      container_name: rabbitmq
+      image: rabbitmq:3-management
+      ports:
+         - "15672:15672"
+         - "5672:5672"
+      hostname: "rabbitmq"
+      environment:
+         - RABBITMQ_ERLANG_COOKIE=Rand0mR4bbitMqCo0k1e
+         - RABBITMQ_DEFAULT_USER=rabbitmq
+         - RABBITMQ_DEFAULT_PASS=rabbitmq
+      networks: 
+         - carrentalsystem-network
+
    identity:
       container_name: identity
       build:

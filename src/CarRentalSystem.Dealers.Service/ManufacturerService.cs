@@ -28,5 +28,17 @@
 
             return model;
         }
+
+        public async Task<Manufacturer> CreateOrUpdateManufacturer(string name)
+        {
+            var manufacturer = await this.FindByNameAsync<Manufacturer>(name);
+
+            manufacturer ??= new Manufacturer
+            {
+                Name = name
+            };
+
+            return manufacturer;
+        }
     }
 }
