@@ -96,6 +96,13 @@
             };
 
             await this.Save(carAd);
+
+            await this.publisher.Publish(new CarAdUpdatedMessage
+            {
+                CarAdId = carAd.Id,
+                Manufacturer = carAd.Manufacturer.Name,
+                Model = carAd.Model
+            });
         }
 
         public async Task<TModel> GetDetails<TModel>(int id)
