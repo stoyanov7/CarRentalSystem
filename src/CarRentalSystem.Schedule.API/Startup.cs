@@ -6,6 +6,8 @@ namespace CarRentalSystem.Schedule.API
     using CarRentalSystem.Common.Configurations;
     using CarRentalSystem.Schedule.Data;
     using Microsoft.Extensions.Configuration;
+    using CarRentalSystem.Schedule.Services.Contracts;
+    using CarRentalSystem.Schedule.Services;
 
     public class Startup
     {
@@ -15,7 +17,8 @@ namespace CarRentalSystem.Schedule.API
 
         public void ConfigureServices(IServiceCollection services)
             => services
-                .AddDatabase<ScheduleDbContext>(this.Configuration);
+                .AddDatabase<ScheduleDbContext>(this.Configuration)
+                .AddTransient<IRentedCarService, RentedCarService>();
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             => app
