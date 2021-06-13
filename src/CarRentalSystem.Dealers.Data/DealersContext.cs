@@ -1,10 +1,11 @@
 ﻿namespace CarRentalSystem.Dealers.Data
 {
+    using CarRentalSystem.Common.Data;
     using CarRentalSystem.Dealers.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
 
-    public class DealersContext : DbContext
+    public class DealersContext : MessageContext
     {
         public DealersContext(DbContextOptions<DealersContext> options)
             : base(options)
@@ -19,11 +20,6 @@
 
         public DbSet<Dealer> Dealers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            base.OnModelCreating(builder);
-        }
+        protected override Assembly ConfigurationsAssembly => Assembly.GetExecutingAssembly();
     }
 }
