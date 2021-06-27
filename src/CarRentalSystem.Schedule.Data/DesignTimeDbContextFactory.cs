@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Dealers.Data
 {
+    using CarRentalSystem.Common.Extensions;
     using CarRentalSystem.Schedule.Data;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
@@ -16,7 +17,7 @@
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ScheduleDbContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetDefaultConnectionString();
             builder.UseSqlServer(connectionString);
 
             return new ScheduleDbContext(builder.Options);

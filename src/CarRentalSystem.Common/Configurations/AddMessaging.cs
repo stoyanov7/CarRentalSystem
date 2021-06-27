@@ -1,14 +1,21 @@
 ﻿namespace CarRentalSystem.Common.Configurations
 {
+    using CarRentalSystem.Common.Extensions;
     using CarRentalSystem.Infrastructure;
     using GreenPipes;
+    using Hangfire;
     using MassTransit;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     public static partial class ConfigurationExtensions
     {
-        public static IServiceCollection AddMessaging(this IServiceCollection services, params System.Type[] consumers)
-            => services.AddMassTransit(mt =>
+        public static IServiceCollection AddMessaging(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            params System.Type[] consumers)
+        {
+            services.AddMassTransit(mt =>
             {
                 consumers.ForEach(consumer => mt.AddConsumer(consumer));
 
@@ -30,5 +37,17 @@
                 }));
             })
             .AddMassTransitHostedService();
+
+            services.AddHangfire(config => config
+                     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                     .UseSimpleAssemblyNameTypeSerializer()
+                     .UseRecommendedSerializerSettings()
+                     .UseSqlServerStorage(configuration.GetDefaultConnectionString()));
+
+            services.AddHangfireServer();
+            services.AddHostedService<MessagesHostedService>();
+
+            return services;
+        }
     }
 }

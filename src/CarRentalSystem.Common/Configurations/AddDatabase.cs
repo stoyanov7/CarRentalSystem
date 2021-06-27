@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Common.Configurations
 {
+    using CarRentalSystem.Common.Extensions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@
                 .AddScoped<DbContext, TDbContext>()
                 .AddDbContextPool<TDbContext>(options =>
                     options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
+                        configuration.GetDefaultConnectionString(),
                         sqlServerOptionsAction => sqlServerOptionsAction.EnableRetryOnFailure(
                             maxRetryCount: 10,
                             maxRetryDelay: TimeSpan.FromSeconds(30),

@@ -8,11 +8,15 @@
     {
         public string serializedData;
 
-        public int Id { get; set; }
+        public Message(object data) => this.Data = data;
 
-        public Type Type { get; set; }
+        private Message() { }
 
-        public bool Published { get; set; }
+        public int Id { get; private set; }
+
+        public Type Type { get; private set; }
+
+        public bool Published { get; private set; }
 
         [NotMapped]
         public object Data
@@ -31,5 +35,7 @@
                     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             }
         }
+
+        public void MarkAsPublished() => this.Published = true;
     }
 }

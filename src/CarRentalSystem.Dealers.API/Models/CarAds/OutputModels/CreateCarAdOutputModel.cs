@@ -24,8 +24,8 @@
 
         public int TransmissionType { get; set; }
 
-        public void Mapping(Profile prifile)
-            => prifile
+        public void Mapping(Profile profile)
+            => profile
                 .CreateMap<CarAd, CreateCarAdOutputModel>()
                 .ForMember(ad => ad.Manufacturer, cfg => cfg.MapFrom(ad => ad.Manufacturer.Name))
                 .ForMember(ad => ad.Category, cfg => cfg.MapFrom(ad => ad.Category.Id))

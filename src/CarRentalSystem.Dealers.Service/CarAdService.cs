@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Dealers.Service
 {
     using AutoMapper;
+    using CarRentalSystem.Common.Data;
     using CarRentalSystem.Common.Messages.Dealers;
     using CarRentalSystem.Common.Service;
     using CarRentalSystem.Common.Service.Contracts;
@@ -65,12 +66,19 @@
                 }
             };
 
-            await this.Save(carAd);
-
-            await this.publisher.Publish(new CarAdCreatedMessage
+            var messageData = new CarAdCreatedMessage
             {
-                CarAdId = carAd.Id
-            });
+                CarAdId = carAd.Id,
+                Manufacturer = carAd.Manufacturer.Name,
+                Model = carAd.Model,
+                PricePerDay = carAd.PricePerDay
+            };
+
+            var message = new Message(messageData);
+
+            await this.Save(carAd);
+            await this.publisher.Publish(messageData);
+            await this.MarkMessageAsPublished(message.Id);
 
             return carAd;
         }

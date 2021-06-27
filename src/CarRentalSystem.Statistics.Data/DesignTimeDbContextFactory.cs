@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Statistics.Data
 {
+    using CarRentalSystem.Common.Extensions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@
                 .Build();
 
             var builder = new DbContextOptionsBuilder<StatisticsContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetDefaultConnectionString();
             builder.UseSqlServer(connectionString);
 
             return new StatisticsContext(builder.Options);

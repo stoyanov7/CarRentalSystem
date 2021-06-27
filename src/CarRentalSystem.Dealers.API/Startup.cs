@@ -8,7 +8,6 @@ namespace CarRentalSystem.Dealers.API
     using CarRentalSystem.Dealers.API.Configurations;
     using CarRentalSystem.Dealers.Data;
     using System.Reflection;
-    using MassTransit;
 
     public class Startup
     {
@@ -23,7 +22,7 @@ namespace CarRentalSystem.Dealers.API
                 .AddTokenAuthentication(this.Configuration)
                 .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
                 .AddServices()
-                .AddMessaging()
+                .AddMessaging(this.Configuration)
                 .AddHealthChecker(this.Configuration)
                 .AddControllers()
                 .AddNewtonsoftJson();

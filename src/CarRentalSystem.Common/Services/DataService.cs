@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Common.Service
 {
+    using CarRentalSystem.Common.Data;
     using CarRentalSystem.Common.Service.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
@@ -14,11 +15,24 @@
 
         protected IQueryable<TEntity> All() => this.Context.Set<TEntity>();
 
-        public async Task Save(TEntity entity)
+        public async Task MarkMessageAsPublished(int id)
         {
-            this.Context.Update(entity);
+            var message = await this.Context.FindAsync<Message>(id);
+            message.MarkAsPublished();
 
             await this.Context.SaveChangesAsync();
         }
+
+        public async Task Save(TEntity entity, params Message[] messages)
+        {
+            foreach (var message in messages)
+            {
+                this.Context.Add(message);
+            }
+
+            this.Context.Update(entity);
+
+            await this.Context.SaveChangesAsync();
+        }        
     }
 }
