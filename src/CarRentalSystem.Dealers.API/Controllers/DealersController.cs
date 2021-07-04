@@ -37,7 +37,7 @@
 
             await this.dealerService.Save(dealer);
 
-            return this.Ok();
+            return this.Ok(dealer.Id);
         }
 
         [HttpPut]

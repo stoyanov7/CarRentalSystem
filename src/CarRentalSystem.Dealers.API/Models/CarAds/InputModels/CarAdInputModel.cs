@@ -32,7 +32,6 @@
         [Range(MinNumberOfSeats, MaxNumberOfSeats)]
         public int NumberOfSeats { get; set; }
 
-        [EnumDataType(typeof(TransmissionType))]
-        public TransmissionType TransmissionType { get; set; }
+        public int TransmissionType { get; set; }
     }
 }

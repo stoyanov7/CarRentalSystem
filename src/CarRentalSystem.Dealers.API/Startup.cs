@@ -23,7 +23,8 @@ namespace CarRentalSystem.Dealers.API
             .AddAutoMapperProfile(Assembly.GetExecutingAssembly())
             .AddServices()
             .AddHealthChecker(this.Configuration)
-            .AddControllers();
+            .AddControllers()
+            .AddNewtonsoftJson();
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             => app

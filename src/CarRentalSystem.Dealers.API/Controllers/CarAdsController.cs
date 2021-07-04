@@ -70,13 +70,13 @@
                 {
                     HasClimateControl = carAdInputModel.HasClimateControl,
                     NumberOfSeats = carAdInputModel.NumberOfSeats,
-                    TransmissionType = carAdInputModel.TransmissionType
+                    TransmissionType = (TransmissionType)carAdInputModel.TransmissionType
                 }
             };
 
             await this.carAdService.Save(carAd);
 
-            return new CreateCarAdOutputModel(carAd.Id);
+            return new CreateCarAdOutputModel(carAd.Id, manufacturer.Name, carAdInputModel.Model, category.Id, carAdInputModel.ImageUrl, carAdInputModel.PricePerDay, carAdInputModel.HasClimateControl, carAdInputModel.NumberOfSeats, carAdInputModel.TransmissionType);
         }
 
         [HttpPost]
@@ -112,7 +112,7 @@
             {
                 HasClimateControl = carAdInputModel.HasClimateControl,
                 NumberOfSeats = carAdInputModel.NumberOfSeats,
-                TransmissionType = carAdInputModel.TransmissionType
+                TransmissionType = (TransmissionType)carAdInputModel.TransmissionType
             };
 
             await this.carAdService.Save(carAd);
