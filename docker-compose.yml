@@ -116,6 +116,13 @@ services:
          dockerfile: ./CarRentalSystem.Watchdog/Dockerfile
       ports: 
          - "5007:80"
+      environment:
+         - HealthChecks-UI__HealthChecks__0__Name=Identity
+         - HealthChecks-UI__HealthChecks__0__Uri=http://identity/health
+         - HealthChecks-UI__HealthChecks__1__Name=Dealers
+         - HealthChecks-UI__HealthChecks__1__Uri=http://dealers/health
+         - HealthChecks-UI__HealthChecks__2__Name=Statistics
+         - HealthChecks-UI__HealthChecks__2__Uri=http://statistics/health
       restart: on-failure
       networks: 
          - carrentalsystem-network

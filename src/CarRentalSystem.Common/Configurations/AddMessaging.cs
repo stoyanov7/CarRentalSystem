@@ -1,6 +1,7 @@
 ﻿namespace CarRentalSystem.Common.Configurations
 {
     using CarRentalSystem.Common.Extensions;
+    using CarRentalSystem.Common.Messages;
     using CarRentalSystem.Infrastructure;
     using GreenPipes;
     using Hangfire;
@@ -26,6 +27,8 @@
                         host.Username("rabbitmq");
                         host.Password("rabbitmq");
                     });
+
+                    rmq.UseHealthCheck(bus);
 
                     consumers.ForEach(consumer => rmq.ReceiveEndpoint(consumer.FullName, endpoint =>
                     {

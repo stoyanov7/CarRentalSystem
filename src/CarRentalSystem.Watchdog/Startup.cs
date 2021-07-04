@@ -13,6 +13,6 @@ namespace CarRentalSystem.Watchdog
         public void Configure(IApplicationBuilder app)
             => app
                 .UseRouting()
-                .UseEndpoints(e => e.MapHealthChecksUI());
+                .UseEndpoints(e => e.MapHealthChecksUI(healthChecks => healthChecks.UIPath = "/healthchecks"));
     }
 }

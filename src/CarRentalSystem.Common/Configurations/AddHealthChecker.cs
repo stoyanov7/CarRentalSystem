@@ -11,6 +11,8 @@
             var healthChecks = services.AddHealthChecks();
             healthChecks.AddSqlServer(configuration.GetDefaultConnectionString());
 
+            healthChecks.AddRabbitMQ(rabbitConnectionString: "amqp://rabbitmq:rabbitmq@rabbitmq/");
+
             return services;
         }
     }
