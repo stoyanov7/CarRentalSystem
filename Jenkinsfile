@@ -18,5 +18,11 @@ pipeline {
             powershell(script: 'docker-compose up -d')    
          }
       }
+      stage('Stop Application') {
+         steps {
+            powershell(script: 'docker-compose down') 
+            powershell(script: 'docker volumes prune -f')   		
+         }
+      }
    }
 }
