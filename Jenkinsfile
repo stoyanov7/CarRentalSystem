@@ -21,7 +21,7 @@ pipeline {
       stage('Stop Application') {
          steps {
             powershell(script: 'docker-compose down') 
-            powershell(script: 'docker volumes prune --force')   		
+            powershell(script: 'docker volume prune --force')   		
          }
       }
    }
